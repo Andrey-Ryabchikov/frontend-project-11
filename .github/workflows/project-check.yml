@@ -1,5 +1,5 @@
 # Name of workflow
-name: check lint and test
+name: check project
 
 # Trigger the workflow on push or pull request
 on:
