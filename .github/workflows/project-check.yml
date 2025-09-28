@@ -1,0 +1,44 @@
+# Name of workflow
+name: check lint and test
+
+# Trigger the workflow on push or pull request
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  CI: true
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+      # Checkout repository
+      - uses: actions/checkout@v4
+
+      # Setup Node.js
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      # Install dependencies
+      - name: Install dependencies
+        run: make install
+
+      # Lint check
+      - name: Lint
+        run: make lint
+
+      
