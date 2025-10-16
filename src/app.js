@@ -2,6 +2,7 @@ import * as yup from 'yup';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import state from './state.js';
 import initView from './view.js';
+import i18next from './i18n.js';
 
 
 const elements = {
@@ -18,11 +19,11 @@ const createSchema = (existingFeeds) => yup.object().shape({
   url: yup
     .string()
     .trim()
-    .required('Не должно быть пустым')
-    .url('Ссылка должна быть валидным URL')
+    .required(i18next.t('errors.required'))
+    .url(i18next.t('errors.invalidUrl'))
     .test(
       'unique',
-      'RSS уже существует',
+      i18next.t('errors.duplicate'),
       (value) => !existingFeeds.some(feed => feed.url === value)
     ),
 });
@@ -65,8 +66,13 @@ elements.form.addEventListener('submit', async (e) => {
     
     
     addFeed(url);
+
+     elements.form.reset();
     
-    console.log('✅ RSS успешно добавлен:', url);
+    elements.input.focus();
+
+
+    console.log(i18next.t('messages.success'), url);
     
   } catch (err) {
     watchedState.form.state = 'error';
@@ -74,10 +80,10 @@ elements.form.addEventListener('submit', async (e) => {
     if (err.name === 'ValidationError') {
       watchedState.form.error = err.errors[0];
     } else {
-      watchedState.form.error = 'Произошла ошибка при валидации';
+      watchedState.form.error = i18next.t('errors.unknown');
     }
     
-    console.error('❌ Ошибка валидации:', err.message);
+    console.error(i18next.t('errors.validation'), err.message);
   }
 });
 

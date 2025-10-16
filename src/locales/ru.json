@@ -1,0 +1,20 @@
+{
+    "translation": {
+        "errors": {
+            "required": "Не должно быть пустым",
+            "invalidUrl": "Ссылка должна быть валидным URL",
+            "duplicate": "RSS уже существует",
+            "network": "Ошибка сети",
+            "unknown": "Произошла неизвестная ошибка",
+            "validation": "Ошибка валидации"
+        },
+        "messages": {
+            "success": "RSS успешно загружен",
+            "loading": "Идёт загрузка..."
+        },
+        "ui": {
+            "submit": "Добавить",
+            "placeholder": "Ссылка RSS"
+        }
+    }
+}

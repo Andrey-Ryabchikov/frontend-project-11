@@ -1,3 +1,5 @@
+import onChange from 'on-change';
+
 const renderFeedback = (elements, error) => {
   const { feedback, input } = elements;
   
